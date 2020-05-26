@@ -1,0 +1,101 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Te damos la bienvenida a Colaboratory",
+      "provenance": [],
+      "collapsed_sections": [],
+      "toc_visible": true,
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/jhonpenagos/metodos_numericos/blob/master/Metodo%20Biseccion\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "kUWiuqKcsI0E",
+        "colab_type": "code",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 51
+        },
+        "outputId": "2fb3b03b-66c2-41ae-cf70-e497c7efba6c"
+      },
+      "source": [
+        "def biseccion(f, a, b, tol=1.e-6):\n",
+        "    \"\"\"\n",
+        "    Funcion que implenta el metodo de biseccion usando\n",
+        "    la instruccion while para encontrar raices reales de\n",
+        "    una funcion. \n",
+        "      f: es la funcion a la cual se le determina alguna raiz\n",
+        "      a: valor menor del interval\n",
+        "      b: valor mayor del intervalo\n",
+        "    tol: es la tolerancia\n",
+        " \n",
+        "    \"\"\"\n",
+        "    fa = f(a)\n",
+        "    if fa*f(b) > 0:\n",
+        "        return None, None, None\n",
+        "\n",
+        "    c = (a + b)*0.5\n",
+        "    fmed = f(c)\n",
+        "    i = 0\n",
+        "    while abs(b-a) > tol:\n",
+        "\n",
+        "        if fa*fmed <= 0:\n",
+        "            b = c  # La raiz esta en el intervalo [a,c]\n",
+        "        else:\n",
+        "            a = c  # La raiz esta en el intervalo [c,b]\n",
+        "            fa = fmed\n",
+        "\n",
+        "        c = (a + b)*0.5\n",
+        "        fmed = f(c)\n",
+        "        i = i + 1\n",
+        "\n",
+        "    return i, c, fmed\n",
+        "def f(x):\n",
+        "    \"\"\"\n",
+        "    Define la funcion para la cual queremos encontrar alguna raiz\n",
+        "    \"\"\"\n",
+        "    return (x**2 + 4.0*x - 4.0)   # usar (-6,-4)\n",
+        "\n",
+        "tol = 1e-10\n",
+        "a, b = -6, -4 # para raiz en la grafica\n",
+        "iter, x, fx = biseccion(f, a, b, tol)\n",
+        "if x is None:\n",
+        "    print('\\t f(x) NO cambia signo en el intervalo [{0:g},{1:g}]'.format(a, b))\n",
+        "else:\n",
+        "    print('\\t En {0:d} iteraciones y con tolerancia de {1:g} la raiz es:'\n",
+        "                                                          .format(iter,tol)) \n",
+        "    print('\\t x = {0:g}, generando f({0:g}) = {1:g}'.format(x,fx))\n",
+        "\n"
+      ],
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "\t En 35 iteraciones y con tolerancia de 1e-10 la raiz es:\n",
+            "\t x = -4.82843, generando f(-4.82843) = -3.84581e-11\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    }
+  ]
+}
